@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private bool started, moving;
-    [SerializeField] private float playerSpeed;
+    [SerializeField] private bool started, moving, grounded;
+    [SerializeField] private float playerSpeed, jumpForce;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Vector3 startPosition;
 
@@ -37,6 +37,12 @@ public class PlayerMovement : MonoBehaviour
                 moving = !moving;
             }
         }
+
+        if (grounded && Input.GetKeyDown(KeyCode.W))
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            grounded = false;
+        }
     }
 
     private void FixedUpdate()
@@ -48,5 +54,15 @@ public class PlayerMovement : MonoBehaviour
         else {
             rb.velocity = Vector2.up * rb.velocity.y; // only keep vertical speed
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        grounded = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        grounded = false;
     }
 }
