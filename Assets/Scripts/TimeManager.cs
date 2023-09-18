@@ -13,13 +13,13 @@ public class TimeManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) && slowSeconds.GetSeconds() > 0)
         {
             slowActive = true;
             OnSlowdown?.Invoke();
         }
         
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D) && fastSeconds.GetSeconds() > 0)
         {
             fastActive = true;
             OnSpeedUp?.Invoke();
