@@ -34,7 +34,7 @@ public class Projectile : MonoBehaviour
             {
                 currentDelay = 0f;
                 offscreen = false;
-                rb.velocity += Vector2.up * reboundSpeed * currentSpeed;
+                rb.velocity += Vector2.up * reboundSpeed;
             }
         }
     }
@@ -44,20 +44,20 @@ public class Projectile : MonoBehaviour
         transform.position = startPosition;
         rb.velocity = Vector2.zero;
         currentSpeed = 1f;
-        rb.gravityScale = 1f;
+        // rb.gravityScale = 1f;
     }
 
     private void SlowDown()
     {
         currentSpeed = 0.5f;
-        rb.gravityScale = 0.5f;
+        // rb.gravityScale = 0.5f;
         rb.velocity = rb.velocity * 0.5f;
     }
 
     private void SpeedUp()
     {
         currentSpeed = 2f;
-        rb.gravityScale = 2f;
+        // rb.gravityScale = 2f;
         rb.velocity = rb.velocity * 2f;
     }
 
@@ -73,7 +73,7 @@ public class Projectile : MonoBehaviour
             rb.velocity = rb.velocity * 2f;
         }
         currentSpeed = 1f;
-        rb.gravityScale = 1f;
+        // rb.gravityScale = 1f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
