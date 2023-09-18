@@ -18,20 +18,20 @@ public class TimeManager : MonoBehaviour
             slowActive = true;
             OnSlowdown?.Invoke();
         }
-        
         if (Input.GetKeyDown(KeyCode.D) && fastSeconds.GetSeconds() > 0)
         {
             fastActive = true;
             OnSpeedUp?.Invoke();
         }
 
-        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
-        {
-            OnRestoreTime?.Invoke();
-        }
-
         if (slowActive) 
         {
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                slowActive = false;
+                OnRestoreTime?.Invoke();
+            }
+
             slowSeconds.RemoveTime(Time.deltaTime);
             if (slowSeconds.GetSeconds() < 0)
             {
@@ -41,6 +41,12 @@ public class TimeManager : MonoBehaviour
         }
         if (fastActive)
         {
+            if (Input.GetKeyUp(KeyCode.D))
+            {
+                fastActive = false;
+                OnRestoreTime?.Invoke();
+            }
+
             fastSeconds.RemoveTime(Time.deltaTime);
             if (fastSeconds.GetSeconds() < 0)
             {
