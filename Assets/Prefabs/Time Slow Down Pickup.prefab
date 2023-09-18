@@ -431,6 +431,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4499914347142476782}
   - component: {fileID: 6688961206525914247}
+  - component: {fileID: 502480273375131391}
   m_Layer: 0
   m_Name: Time Slow Down Pickup
   m_TagString: Slow Down
@@ -491,6 +492,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.75
+--- !u!114 &502480273375131391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5749058038661650715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f01af6bc0211af6409573c0295a0fb6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6538929368056332510
 GameObject:
   m_ObjectHideFlags: 0

@@ -58,12 +58,12 @@ public class PlayerMovement : MonoBehaviour
         else if (collision.gameObject.CompareTag("Speed Up"))
         {
             speedUp.AddSeconds();
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
         }
         else if (collision.gameObject.CompareTag("Slow Down"))
         {
             slowDown.AddSeconds();
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
         }
     }
 

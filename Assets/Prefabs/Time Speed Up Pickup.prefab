@@ -95,6 +95,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9094398060472372324}
   - component: {fileID: 4582807439448340848}
+  - component: {fileID: 3944162747374663417}
   m_Layer: 0
   m_Name: Time Speed Up Pickup
   m_TagString: Speed Up
@@ -155,6 +156,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.75
+--- !u!114 &3944162747374663417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2544958566629422258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f01af6bc0211af6409573c0295a0fb6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2694609771788862387
 GameObject:
   m_ObjectHideFlags: 0
