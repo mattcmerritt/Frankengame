@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private bool started, moving, grounded;
+    [SerializeField] private bool moving, grounded;
     [SerializeField] private float playerSpeed, jumpForce;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Vector3 startPosition;
@@ -17,21 +17,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // start game on first space
-            if (!started)
-            {
-                started = true;
-                moving = true;
-            }
-            // otherwise change between moving and not moving
-            else 
-            {
-                moving = !moving;
-            }
+            moving = !moving;
         }
 
         if (grounded && Input.GetKeyDown(KeyCode.W))
@@ -55,7 +43,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void ResetPlayer()
     {
-        started = false; // make player press and release space again
         moving = false; // player will not be automatically moving
         transform.position = startPosition; // reset to starting position
     }
