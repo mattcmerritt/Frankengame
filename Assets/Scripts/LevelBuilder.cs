@@ -49,8 +49,6 @@ public class LevelBuilder : MonoBehaviour
             Vector3 platformLocation = new Vector3(platformLocationX, platformHeight, 0f);
             Instantiate(platformPrefab, platformLocation, Quaternion.identity);
 
-            Debug.Log("Platform at: " + platformLocationX);
-
             // generating the collectables
             Vector3 collectableLocation = new Vector3(platformLocationX, collectableHeight, 0f);
             int collectableOdds = Random.Range(1, 5);
