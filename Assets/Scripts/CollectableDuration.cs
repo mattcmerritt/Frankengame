@@ -6,6 +6,7 @@ using UnityEngine;
 public class CollectableDuration : ScriptableObject
 {
     public float secondsLeft;
+    public float increment = 5;
 
     private void OnEnable()
     {
@@ -17,13 +18,18 @@ public class CollectableDuration : ScriptableObject
         secondsLeft -= timeElapsed;
     }
 
-    public void AddSecond()
+    public void AddSeconds()
     {
-        secondsLeft += 1;
+        secondsLeft += increment;
     }
 
     public float GetSeconds()
     {
         return secondsLeft;
+    }
+
+    public void ResetSeconds()
+    {
+        secondsLeft = 0f;
     }
 }

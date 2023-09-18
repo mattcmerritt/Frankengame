@@ -209,6 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b033833aed4a2c4cb7ac75b5a2e8bc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slowDown: {fileID: 11400000, guid: 83591323a7fa3a9429538595357a7fcc, type: 2}
+  speedUp: {fileID: 11400000, guid: 2edf4a6a996a6624bbcf8c89af556901, type: 2}
 --- !u!4 &165626087
 Transform:
   m_ObjectHideFlags: 0

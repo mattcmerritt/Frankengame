@@ -7,6 +7,13 @@ public class PlayerManager : MonoBehaviour
 {
     public static event Action OnReset;
 
+    [SerializeField] private CollectableDuration slowDown, speedUp;
+
+    private void Start()
+    {
+        OnReset += ResetCollectedSeconds;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
@@ -18,5 +25,11 @@ public class PlayerManager : MonoBehaviour
     public static void ResetGame()
     {
         OnReset?.Invoke();
+    }
+
+    private void ResetCollectedSeconds()
+    {
+        slowDown.ResetSeconds();
+        speedUp.ResetSeconds();
     }
 }
