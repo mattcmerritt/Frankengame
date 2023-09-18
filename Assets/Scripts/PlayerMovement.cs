@@ -8,11 +8,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float playerSpeed, jumpForce;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Vector3 startPosition;
+    [SerializeField] private CollectableDuration slowDown, speedUp;
 
     private void Start()
     {
         startPosition = transform.position;
-        PlayerManager.OnReset += ResetPlayer;
+        PlayerManager.OnReset += ResetPlayer; 
     }
 
     private void Update()
@@ -45,16 +46,33 @@ public class PlayerMovement : MonoBehaviour
     {
         moving = false; // player will not be automatically moving
         transform.position = startPosition; // reset to starting position
+        rb.velocity = Vector2.zero;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        grounded = true;
+        if (collision.gameObject.CompareTag("Terrain"))
+        {
+            grounded = true;
+        }
+        else if (collision.gameObject.CompareTag("Speed Up"))
+        {
+            speedUp.AddSecond();
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Slow Down"))
+        {
+            slowDown.AddSecond();
+            Destroy(collision.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        grounded = false;
+        if (collision.gameObject.CompareTag("Terrain"))
+        {
+            grounded = false;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

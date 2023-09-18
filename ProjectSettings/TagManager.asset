@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Terrain
   - Offscreen
+  - Speed Up
+  - Slow Down
   layers:
   - Default
   - TransparentFX
