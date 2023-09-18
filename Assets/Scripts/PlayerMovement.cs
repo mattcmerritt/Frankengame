@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private bool moving, grounded;
+    [SerializeField] private bool started, moving, grounded;
     [SerializeField] private float playerSpeed, jumpForce;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Vector3 startPosition;
@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            started = true;
             moving = !moving;
         }
 
@@ -45,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ResetPlayer()
     {
+        started = false;
         moving = false; // player will not be automatically moving
         transform.position = startPosition; // reset to starting position
         rb.velocity = Vector2.zero;
@@ -74,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
         {
             grounded = false;
         }
-        if (collision.gameObject.CompareTag("Checkpoint"))
+        if (collision.gameObject.CompareTag("Checkpoint") && started)
         {
             score.AddScore();
         }
