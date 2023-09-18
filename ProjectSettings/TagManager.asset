@@ -8,6 +8,7 @@ TagManager:
   - Offscreen
   - Speed Up
   - Slow Down
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

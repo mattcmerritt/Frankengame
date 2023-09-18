@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Vector3 startPosition;
     [SerializeField] private CollectableDuration slowDown, speedUp;
+    [SerializeField] private ScoreTracker score; 
 
     private void Start()
     {
@@ -72,6 +73,10 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Terrain"))
         {
             grounded = false;
+        }
+        if (collision.gameObject.CompareTag("Checkpoint"))
+        {
+            score.AddScore();
         }
     }
 

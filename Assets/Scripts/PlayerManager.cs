@@ -8,10 +8,12 @@ public class PlayerManager : MonoBehaviour
     public static event Action OnReset;
 
     [SerializeField] private CollectableDuration slowDown, speedUp;
+    [SerializeField] private ScoreTracker score;
 
     private void Start()
     {
         OnReset += ResetCollectedSeconds;
+        OnReset += ResetScore;
     }
 
     private void Update()
@@ -31,5 +33,10 @@ public class PlayerManager : MonoBehaviour
     {
         slowDown.ResetSeconds();
         speedUp.ResetSeconds();
+    }
+
+    private void ResetScore()
+    {
+        score.ResetScore();
     }
 }

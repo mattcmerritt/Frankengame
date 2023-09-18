@@ -5,7 +5,7 @@ using UnityEngine;
 // this script is attached to the camera so that it always generates in front of it
 public class LevelBuilder : MonoBehaviour
 {
-    [SerializeField] private GameObject obstaclePrefab, platformPrefab, speedUpPrefab, slowDownPrefab;
+    [SerializeField] private GameObject obstaclePrefab, platformPrefab, speedUpPrefab, slowDownPrefab, checkpointPrefab;
     [SerializeField] private float lastPlatformEnding, platformLength;
     [SerializeField] private int minPlatformGap, maxPlatformGap, minWindowToCamera, maxWindowToCamera;
     [SerializeField] private float minObstacleHeight, maxObstacleHeight, platformHeight, collectableHeight;
@@ -28,6 +28,7 @@ public class LevelBuilder : MonoBehaviour
                 {
                     Vector3 location = new Vector3(lastPlatformEnding + platformGap / 2, Random.Range(minObstacleHeight, maxObstacleHeight), 0f);
                     Instantiate(obstaclePrefab, location, Quaternion.identity);
+                    Instantiate(checkpointPrefab, new Vector3(location.x, 0f, 0f), Quaternion.identity);
                 }
                 // two obstacles
                 else
@@ -36,12 +37,15 @@ public class LevelBuilder : MonoBehaviour
                     Vector3 location2 = new Vector3(lastPlatformEnding + 2 * platformGap / 3, Random.Range(minObstacleHeight, maxObstacleHeight), 0f);
                     Instantiate(obstaclePrefab, location1, Quaternion.identity);
                     Instantiate(obstaclePrefab, location2, Quaternion.identity);
+                    Instantiate(checkpointPrefab, new Vector3(location1.x, 0f, 0f), Quaternion.identity);
+                    Instantiate(checkpointPrefab, new Vector3(location2.x, 0f, 0f), Quaternion.identity);
                 }
             }
             else if (platformGap >= 2)
             {
                 Vector3 location = new Vector3(lastPlatformEnding + platformGap / 2, Random.Range(minObstacleHeight, maxObstacleHeight), 0f);
                 Instantiate(obstaclePrefab, location, Quaternion.identity);
+                Instantiate(checkpointPrefab, new Vector3(location.x, 0f, 0f), Quaternion.identity);
             }
 
             // generating the platform
