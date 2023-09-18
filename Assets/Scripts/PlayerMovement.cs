@@ -47,7 +47,8 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = Vector2.right * playerSpeed + Vector2.up * rb.velocity.y; // go forward and preserve vertical speed
         }
-        else {
+        else 
+        {
             rb.velocity = Vector2.up * rb.velocity.y; // only keep vertical speed
         }
     }

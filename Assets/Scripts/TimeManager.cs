@@ -13,11 +13,13 @@ public class TimeManager : MonoBehaviour
         {
             OnSlowdown?.Invoke();
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        
+        if (Input.GetKeyDown(KeyCode.D))
         {
             OnSpeedUp?.Invoke();
         }
-        else if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+
+        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
             OnRestoreTime?.Invoke();
         }

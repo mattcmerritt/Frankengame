@@ -5,12 +5,12 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private float currentSpeed = 1f;
+    [SerializeField] private float currentSpeedMultiplier = 1f;
     private Vector3 startPosition;
 
     // Data to make the projectiles bounce back up
-    [SerializeField] private float reboundSpeed, reboundDelay, currentDelay;
-    [SerializeField] private bool offscreen;
+    [SerializeField] private float moveSpeed, reboundDelay, currentDelay, verticalBorder;
+    [SerializeField] private bool offscreen, movingUp, returnedToScreen;
 
     private void Start()
     {
@@ -21,66 +21,61 @@ public class Projectile : MonoBehaviour
         startPosition = transform.position;
 
         PlayerManager.OnReset += ResetProjectile;
+
+        rb.velocity = Vector2.up * moveSpeed * currentSpeedMultiplier * (movingUp ? 1 : -1);
     }
 
     private void Update()
     {
-        if (offscreen)
+        if (!offscreen && Mathf.Abs(transform.position.y) > verticalBorder)
         {
-            currentDelay += Time.deltaTime * currentSpeed;
-            
+            offscreen = true;
+            returnedToScreen = false;
+        }
+        
+        if (offscreen && !returnedToScreen)
+        {
+            currentDelay += Time.deltaTime * currentSpeedMultiplier;
+
             // if it has been sufficiently long, have the projectile bounce back up
             if (currentDelay >= reboundDelay)
             {
                 currentDelay = 0f;
-                offscreen = false;
-                rb.velocity += Vector2.up * reboundSpeed;
+                movingUp = !movingUp; // reverse directions
+                rb.velocity = Vector2.up * moveSpeed * currentSpeedMultiplier * (movingUp ? 1 : -1);
             }
+        }
+
+        if (offscreen && Mathf.Abs(transform.position.y) < verticalBorder)
+        {
+            offscreen = false;
+            returnedToScreen = true;
         }
     }
 
     private void ResetProjectile()
     {
+        currentSpeedMultiplier = 1f;
         transform.position = startPosition;
-        rb.velocity = Vector2.zero;
-        currentSpeed = 1f;
-        // rb.gravityScale = 1f;
+        movingUp = false;
+        rb.velocity = Vector2.up * moveSpeed * currentSpeedMultiplier * (movingUp ? 1 : -1);
     }
 
     private void SlowDown()
     {
-        currentSpeed = 0.5f;
-        // rb.gravityScale = 0.5f;
+        currentSpeedMultiplier = 0.5f;
         rb.velocity = rb.velocity * 0.5f;
     }
 
     private void SpeedUp()
     {
-        currentSpeed = 2f;
-        // rb.gravityScale = 2f;
+        currentSpeedMultiplier = 2f;
         rb.velocity = rb.velocity * 2f;
     }
 
     private void RestoreSpeed()
     {
-        // restore proper speed based on if it was sped up or slowed down
-        if (currentSpeed == 2f)
-        {
-            rb.velocity = rb.velocity / 2f;
-        }
-        else if (currentSpeed == 0.5f)
-        {
-            rb.velocity = rb.velocity * 2f;
-        }
-        currentSpeed = 1f;
-        // rb.gravityScale = 1f;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.gameObject.CompareTag("Offscreen"))
-        {
-            offscreen = true;
-        }
+        currentSpeedMultiplier = 1f;
+        rb.velocity = Vector2.up * moveSpeed * currentSpeedMultiplier * (movingUp ? 1 : -1);
     }
 }
