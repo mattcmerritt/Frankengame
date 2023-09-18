@@ -6,7 +6,11 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float currentSpeed = 1f;
-    [SerializeField] private Vector3 startPosition;
+    private Vector3 startPosition;
+
+    // Data to make the projectiles bounce back up
+    [SerializeField] private float reboundSpeed, reboundDelay, currentDelay;
+    [SerializeField] private bool offscreen;
 
     private void Start()
     {
@@ -15,17 +19,32 @@ public class Projectile : MonoBehaviour
         TimeManager.OnRestoreTime += RestoreSpeed;
 
         startPosition = transform.position;
+
+        PlayerManager.OnReset += ResetProjectile;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (offscreen)
         {
-            transform.position = startPosition;
-            rb.velocity = Vector2.zero;
-            currentSpeed = 1f;
-            rb.gravityScale = 1f;
+            currentDelay += Time.deltaTime * currentSpeed;
+            
+            // if it has been sufficiently long, have the projectile bounce back up
+            if (currentDelay >= reboundDelay)
+            {
+                currentDelay = 0f;
+                offscreen = false;
+                rb.velocity += Vector2.up * reboundSpeed * currentSpeed;
+            }
         }
+    }
+
+    private void ResetProjectile()
+    {
+        transform.position = startPosition;
+        rb.velocity = Vector2.zero;
+        currentSpeed = 1f;
+        rb.gravityScale = 1f;
     }
 
     private void SlowDown()
@@ -55,5 +74,13 @@ public class Projectile : MonoBehaviour
         }
         currentSpeed = 1f;
         rb.gravityScale = 1f;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.CompareTag("Offscreen"))
+        {
+            offscreen = true;
+        }
     }
 }

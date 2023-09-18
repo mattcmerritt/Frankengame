@@ -12,16 +12,12 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         startPosition = transform.position;
+        PlayerManager.OnReset += ResetPlayer;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            started = false; // make player press and release space again
-            moving = false; // player will not be automatically moving
-            transform.position = startPosition; // reset to starting position
-        }
+        
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -56,6 +52,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void ResetPlayer()
+    {
+        started = false; // make player press and release space again
+        moving = false; // player will not be automatically moving
+        transform.position = startPosition; // reset to starting position
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         grounded = true;
@@ -64,5 +67,13 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         grounded = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.collider.gameObject.CompareTag("Terrain"))
+        {
+            PlayerManager.ResetGame();
+        }
     }
 }
